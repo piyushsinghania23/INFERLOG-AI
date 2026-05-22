@@ -13,6 +13,13 @@ This project includes:
 - Docker Compose one-command setup
 - Kubernetes manifests for self-hosted deployment baseline
 
+## Deliverables Checklist
+- Setup instructions: See `3. Setup Instructions`
+- Architecture overview: See `1. Architecture Overview`
+- Schema design decisions: See `2. Schema Design`
+- Tradeoffs made: See `2. Schema Design -> Practical tradeoffs`
+- What you would improve with more time: See `8. Improvements With More Time`
+
 ## 1. Architecture Overview
 
 ### Core flow
