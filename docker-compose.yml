@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: inferlog-app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://inferlog:inferlog@db:5432/inferlog
+      INGESTION_URL: http://app:8000/api/ingest/inference
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    container_name: inferlog-db
+    environment:
+      POSTGRES_USER: inferlog
+      POSTGRES_PASSWORD: inferlog
+      POSTGRES_DB: inferlog
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inferlog -d inferlog"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pgdata:

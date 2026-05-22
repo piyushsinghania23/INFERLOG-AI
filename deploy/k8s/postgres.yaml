@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: inferlog-postgres
+  namespace: inferlog
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: inferlog-postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: inferlog-postgres
+  namespace: inferlog
+spec:
+  serviceName: inferlog-postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inferlog-postgres
+  template:
+    metadata:
+      labels:
+        app: inferlog-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: inferlog
+            - name: POSTGRES_USER
+              value: inferlog
+            - name: POSTGRES_PASSWORD
+              value: inferlog
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: pgdata
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi

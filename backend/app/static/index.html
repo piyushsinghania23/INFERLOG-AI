@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InferLog AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="background-glow"></div>
+    <main class="layout">
+      <aside class="panel conversations-panel">
+        <div class="panel-header">
+          <h2>Conversations</h2>
+          <button id="newConversationBtn" class="btn btn-solid">New</button>
+        </div>
+        <ul id="conversationList" class="conversation-list"></ul>
+      </aside>
+
+      <section class="panel chat-panel">
+        <header class="chat-header">
+          <div>
+            <h1>Inference Logger Chat</h1>
+            <p id="statusText">Ready</p>
+          </div>
+          <div class="controls">
+            <label>
+              Provider
+              <select id="providerSelect"></select>
+            </label>
+            <label>
+              Model
+              <input id="modelInput" type="text" placeholder="gpt-4.1-mini" />
+            </label>
+          </div>
+        </header>
+
+        <div id="messages" class="messages"></div>
+
+        <footer class="composer">
+          <textarea id="messageInput" placeholder="Ask anything..." rows="3"></textarea>
+          <div class="composer-actions">
+            <button id="cancelBtn" class="btn btn-ghost" disabled>Cancel Conversation</button>
+            <button id="sendBtn" class="btn btn-solid">Send</button>
+          </div>
+        </footer>
+      </section>
+
+      <aside class="panel dashboard-panel">
+        <h2>Inference Dashboard</h2>
+        <div id="statsCards" class="stats-grid"></div>
+        <h3>Throughput (per minute)</h3>
+        <div id="throughputChart" class="throughput-chart"></div>
+        <h3>Recent Logs</h3>
+        <div id="recentLogs" class="recent-logs"></div>
+      </aside>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
